@@ -35,7 +35,7 @@ public class IO_Main {
 
 			int[][] board = new int[6][7]; //[row][column]
 			int place = 0;
-			int predicted_winner, row, column = 0;
+			int row, column = 0;
 			
 			for(column=0;column<7;column++) {
 				for(row=0;row<6;row++) {
@@ -43,7 +43,6 @@ public class IO_Main {
 					place++;
 				}
 			}
-			predicted_winner = Integer.parseInt(boardstate[place]);
 			
 			int feature1 = featureAlgorithms.feature1(board);
 			int feature2 = featureAlgorithms.feature2(board);
