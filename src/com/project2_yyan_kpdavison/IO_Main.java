@@ -26,6 +26,14 @@ public class IO_Main {
 		fr = new FileReader(new File(args[0]));
 		input = new BufferedReader(fr);
 		
+		String headerline = "";
+		for(int i=1;i<43;i++) {
+			headerline = headerline + "f" + i + ",";
+		}
+		headerline = headerline + "feature1,feature2,feature3,feature4,feature5,feature6,PredictedWinner";
+		fw.write(headerline + "\r\n");
+		fw.flush();
+		
 		while(true) {
 			String line = input.readLine();
 			if(line == null) break;
@@ -52,8 +60,15 @@ public class IO_Main {
 			int feature3 = featureAlgorithms.feature3();
 			String feature4 = featureAlgorithms.feature4();
 			int feature5 = featureAlgorithms.feature5();
+			int feature6 = featureAlgorithms.feature6();
 			
-			String outstring = line + "," + feature1 + "," + feature2 + "," + feature3 + "," + feature4 + "," + feature5;
+			String outstring = "";
+			for(int i=0;i<42;i++) {
+				outstring = outstring + boardstate[i] + ",";
+			}
+			outstring = outstring + feature1 + "," + feature2 + "," + feature3 + "," + feature4 + "," + 
+						feature5 + "," + feature6 + "," + boardstate[42];
+			
 			fw.write(outstring + "\r\n");
 			fw.flush();
 		};

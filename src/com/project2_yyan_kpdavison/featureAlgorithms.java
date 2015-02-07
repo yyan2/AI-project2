@@ -486,7 +486,7 @@ public class featureAlgorithms {
 	 */
 	public static int feature5() {
 		int value = 0;
-		int row,column,i,j = 0;
+		int row,column,i = 0;
 		
 		for(column=0;column<IO_Main.numcolumns;column++) {
 			for(row=(IO_Main.numrows - 1);row>0;row--) {
@@ -526,6 +526,44 @@ public class featureAlgorithms {
 			}
 		}
 		
+		return value;
+	}
+	
+	/**
+	 * Takes the chain value estimate of feature 2 and adds the checking of possible 
+	 * future chains from feature 5
+	 * @return estimated value
+	 */
+	static int feature6() {
+		int value = 0;
+		value = feature2();
+
+		int row,column = 0;
+
+		for(column=0;column<IO_Main.numcolumns;column++) {
+			for(row=(IO_Main.numrows - 1);row>0;row--) {
+				if(IO_Main.gameboard[row][column] != 0) break;
+			}
+
+			//we have the top piece or column is empty
+			if(IO_Main.gameboard[row][column] == 1) {
+				value += (IO_Main.numrows - row);
+			}
+			else if(IO_Main.gameboard[row][column] == -1) {
+				value -= (IO_Main.numrows - row);
+			}
+
+			//if space is owned check neighbors for empty
+			if(IO_Main.gameboard[row][column] != 0) {
+				if(column > 0) {
+					if(IO_Main.gameboard[row][column-1] == 0) value += IO_Main.gameboard[row][column];
+				}
+				if(column < (IO_Main.numcolumns-1)) {
+					if(IO_Main.gameboard[row][column+1] == 0) value += IO_Main.gameboard[row][column];
+				}
+			}
+		}
+
 		return value;
 	}
 }
